@@ -31,10 +31,8 @@
     MKCircle * circle = [MKCircle circleWithCenterCoordinate:[SunPosition getSunCooridinate:[NSDate date]]
                                                       radius:radius];
 
-
     [self.mapView addOverlay:circle];
     [self.mapView addOverlay:polygon];
-    
     
 }
 

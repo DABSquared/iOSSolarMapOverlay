@@ -50,7 +50,7 @@
         CLLocation *location =  (CLLocation *)[somePoints objectAtIndex:i];
         points[i] = location.coordinate;
     }
-
+    
     polygon = [MKPolygon polygonWithCoordinates:points count:364];
     polygon.title = @"Sun Position";
 }

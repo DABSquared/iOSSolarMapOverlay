@@ -20,4 +20,6 @@
 -(MKMapRect)boundingMapRect;
 -(CLLocationCoordinate2D)coordinate;
 -(NSMutableArray *)sunPoints:(NSDate *)date;
+-(void)setDate:(NSDate *)date;
+
 @end
