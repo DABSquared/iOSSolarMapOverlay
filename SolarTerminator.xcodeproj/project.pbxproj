@@ -24,6 +24,10 @@
 		65937FA3178BC33F00FF9B2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65937F7B178BC33F00FF9B2B /* Foundation.framework */; };
 		65937FAB178BC33F00FF9B2B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65937FA9178BC33F00FF9B2B /* InfoPlist.strings */; };
 		65937FAE178BC33F00FF9B2B /* SolarTerminatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65937FAD178BC33F00FF9B2B /* SolarTerminatorTests.m */; };
+		65937FBA178BC39700FF9B2B /* SolarTerminatorOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 65937FB9178BC39700FF9B2B /* SolarTerminatorOverlay.m */; };
+		65D81557178BC8A300E3C3A5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D81556178BC8A300E3C3A5 /* MapKit.framework */; };
+		65D81559178BC8B800E3C3A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D81558178BC8B800E3C3A5 /* CoreLocation.framework */; };
+		65D8155C178BCA3800E3C3A5 /* SunPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D8155B178BCA3800E3C3A5 /* SunPosition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,12 @@
 		65937FAA178BC33F00FF9B2B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65937FAC178BC33F00FF9B2B /* SolarTerminatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SolarTerminatorTests.h; sourceTree = "<group>"; };
 		65937FAD178BC33F00FF9B2B /* SolarTerminatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SolarTerminatorTests.m; sourceTree = "<group>"; };
+		65937FB8178BC39700FF9B2B /* SolarTerminatorOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolarTerminatorOverlay.h; path = Classes/SolarTerminatorOverlay.h; sourceTree = "<group>"; };
+		65937FB9178BC39700FF9B2B /* SolarTerminatorOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SolarTerminatorOverlay.m; path = Classes/SolarTerminatorOverlay.m; sourceTree = "<group>"; };
+		65D81556178BC8A300E3C3A5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		65D81558178BC8B800E3C3A5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		65D8155A178BCA3800E3C3A5 /* SunPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SunPosition.h; path = Classes/SunPosition.h; sourceTree = "<group>"; };
+		65D8155B178BCA3800E3C3A5 /* SunPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SunPosition.m; path = Classes/SunPosition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65D81559178BC8B800E3C3A5 /* CoreLocation.framework in Frameworks */,
+				65D81557178BC8A300E3C3A5 /* MapKit.framework in Frameworks */,
 				65937F7A178BC33F00FF9B2B /* UIKit.framework in Frameworks */,
 				65937F7C178BC33F00FF9B2B /* Foundation.framework in Frameworks */,
 				65937F7E178BC33F00FF9B2B /* CoreGraphics.framework in Frameworks */,
@@ -108,6 +120,8 @@
 		65937F78178BC33F00FF9B2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65D81558178BC8B800E3C3A5 /* CoreLocation.framework */,
+				65D81556178BC8A300E3C3A5 /* MapKit.framework */,
 				65937F79178BC33F00FF9B2B /* UIKit.framework */,
 				65937F7B178BC33F00FF9B2B /* Foundation.framework */,
 				65937F7D178BC33F00FF9B2B /* CoreGraphics.framework */,
@@ -119,6 +133,7 @@
 		65937F7F178BC33F00FF9B2B /* SolarTerminator */ = {
 			isa = PBXGroup;
 			children = (
+				65937FB7178BC34F00FF9B2B /* Classes */,
 				65937F88178BC33F00FF9B2B /* AppDelegate.h */,
 				65937F89178BC33F00FF9B2B /* AppDelegate.m */,
 				65937F91178BC33F00FF9B2B /* MainStoryboard_iPhone.storyboard */,
@@ -161,6 +176,17 @@
 				65937FA9178BC33F00FF9B2B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65937FB7178BC34F00FF9B2B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				65937FB8178BC39700FF9B2B /* SolarTerminatorOverlay.h */,
+				65937FB9178BC39700FF9B2B /* SolarTerminatorOverlay.m */,
+				65D8155A178BCA3800E3C3A5 /* SunPosition.h */,
+				65D8155B178BCA3800E3C3A5 /* SunPosition.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +303,8 @@
 				65937F86178BC33F00FF9B2B /* main.m in Sources */,
 				65937F8A178BC33F00FF9B2B /* AppDelegate.m in Sources */,
 				65937F99178BC33F00FF9B2B /* ViewController.m in Sources */,
+				65937FBA178BC39700FF9B2B /* SolarTerminatorOverlay.m in Sources */,
+				65D8155C178BCA3800E3C3A5 /* SunPosition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +495,7 @@
 				65937FB3178BC33F00FF9B2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65937FB4178BC33F00FF9B2B /* Build configuration list for PBXNativeTarget "SolarTerminatorTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +504,7 @@
 				65937FB6178BC33F00FF9B2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
