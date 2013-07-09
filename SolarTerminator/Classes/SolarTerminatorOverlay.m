@@ -7,7 +7,6 @@
 //
 
 #import "SolarTerminatorOverlay.h"
-#import "SunPosition.h"
 
 @implementation SolarTerminatorOverlay
 

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SunPosition.h"
+
+
 @interface SolarTerminatorOverlay : NSObject<MKOverlay>
 
 
