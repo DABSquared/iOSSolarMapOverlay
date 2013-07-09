@@ -8,15 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SolarTerminatorOverlay : NSObject <MKOverlay>
+@interface SolarTerminatorOverlay : NSObject<MKOverlay>
 
 
 //@property (nonatomic) CLLocationCoordinate2D origin;
 @property (nonatomic, retain) MKPolygon *polygon;
 
-//@property (nonatomic) MKMapRect rect;
-
 -(MKMapRect)boundingMapRect;
 -(CLLocationCoordinate2D)coordinate;
-
+-(NSMutableArray *)sunPoints:(NSDate *)date;
 @end

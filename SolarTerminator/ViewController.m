@@ -31,9 +31,11 @@
     MKCircle * circle = [MKCircle circleWithCenterCoordinate:[SunPosition getSunCooridinate:[NSDate date]]
                                                       radius:radius];
 
+
     [self.mapView addOverlay:circle];
     [self.mapView addOverlay:polygon];
-
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,10 +53,9 @@
         //get the MKPolygon inside the ParkingRegionOverlay...
         MKPolygon *proPolygon = ((SolarTerminatorOverlay*)overlay).polygon;
         MKPolygonView *aView = [[MKPolygonView alloc] initWithPolygon:proPolygon];
-        
-        aView.fillColor = [[UIColor cyanColor] colorWithAlphaComponent:0.2];
-        aView.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.7];
-        aView.lineWidth = 3;
+        aView.strokeColor = [UIColor colorWithWhite:.2 alpha:.5];
+        aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
+        aView.lineWidth = 10;
 
         return aView;
     }else if ([overlay isKindOfClass:[MKCircle class]]) {
@@ -63,6 +64,12 @@
         circleView.strokeColor = [UIColor colorWithWhite:.2 alpha:.5];
         circleView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
         return circleView;
+    }else if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineView *aView = [[MKPolylineView alloc] initWithPolyline:overlay];
+        aView.fillColor = [[UIColor cyanColor] colorWithAlphaComponent:0.2];
+        aView.strokeColor = [UIColor blackColor];
+        aView.lineWidth = 5;
+        return aView;
     }
     
     return nil;
