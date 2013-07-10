@@ -16,17 +16,17 @@
 
 /** Epoch Julian Date. */
 #define EPOCH_JULIAN_DATE 2447891.5
-/** Epoch start time in seconds. */
+/** Epoch start time in seconds. This is probalby the Jan 1990 Epoch?*/
 #define EPOCH_TIME_SECS 631065600
 
-#define TWO_PI M_PI * 2
+#define TWO_PI (M_PI * 2.0f)
 
 
 /**
  * Constant denoting the number of radians an object would travel if it
  * orbited around the earth in a day.
  */
-#define ORBIT_RADS_PER_DAY (M_PI *2) / 365.242191
+#define ORBIT_RADS_PER_DAY ((M_PI *2) / 365.242191)
 
 /**
  * Ecliptic Longitude of earth at 1990 January epoch. From Duffett-Smith,
@@ -66,7 +66,7 @@
 /**
  * Moon parameter, from Duffett-Smith, chapter 65, table 10. In radians.
  */
-#define MOON_EPOCH_MEAN_LONGITUDE 318.351648 * M_PI / 180.0
+#define MOON_EPOCH_MEAN_LONGITUDE (318.351648 * M_PI / 180.0)
 /**
  * The algorithm representation for the moon MOON_EPOCH_MEAN_LONGITUDE, "l".
  */
@@ -75,7 +75,7 @@
 /**
  * Moon parameter, from Duffett-Smith, chapter 65, table 10. In radians.
  */
-#define PERIGEE_EPOCH_MEAN_LONGITUDE 36.340410 * M_PI / 180.0
+#define PERIGEE_EPOCH_MEAN_LONGITUDE (36.340410 * M_PI / 180.0)
 /**
  * The algorithm representation for the moon PERIGEE_EPOCH_MEAN_LONGITUDE.
  */
@@ -84,7 +84,7 @@
 /**
  * Moon parameter, from Duffett-Smith, chapter 65, table 10. In radians.
  */
-#define NODE_EPOCH_MEAN_LONGITUDE  318.510107 * M_PI / 180.0
+#define NODE_EPOCH_MEAN_LONGITUDE  (318.510107 * M_PI / 180.0)
 /**
  * The algorithm representation for the moon NODE_EPOCH_MEAN_LONGITUDE.
  */
@@ -93,7 +93,7 @@
 /**
  * Moon parameter, from Duffett-Smith, chapter 65, table 10. In radians.
  */
-#define MOON_ORBIT_INCLINATION 5.145396 * M_PI / 180.0
+#define MOON_ORBIT_INCLINATION (5.145396 * M_PI / 180.0)
 /**
  * The algorithm representation for the moon MOON_ORBIT_INCLINATION, "i".
  */
@@ -106,13 +106,12 @@
 /**
  * Moon parameter, from Duffett-Smith, chapter 65, table 10. In radians.
  */
-#define MOON_ANGULAR_SIZE .5181 * M_PI / 180.0
+#define MOON_ANGULAR_SIZE (.5181 * M_PI / 180.0)
 /**
  * Moon parameter, from Duffett-Smith, chapter 65, table 10. In radians.
  */
-#define MOON_PARALLAX .9507 * M_PI / 180.0
+#define MOON_PARALLAX (.9507 * M_PI / 180.0)
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
 - (id)init
 {
@@ -186,7 +185,7 @@
 -(double)sunMeanAnomaly:(double)daysSinceEpoch {
 
     double N = ORBIT_RADS_PER_DAY * daysSinceEpoch;
-    N = (double)((int) N % ((int)M_PI * 2));
+    N = fmod( N ,TWO_PI);
     if (N < 0)
         N += TWO_PI;
 
@@ -251,8 +250,9 @@
  */
 -(double)calculateJulianDate:(NSDate *)date {
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-
-    NSDateComponents * dateComponents = [[NSCalendar currentCalendar] components:unitFlags fromDate:date];
+    NSCalendar * calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDateComponents * dateComponents = [calendar components:unitFlags fromDate:date];
 
     int year = [dateComponents year];
     int month = [dateComponents month];
@@ -285,26 +285,36 @@
  */
 -(double)greenwichSiderealTime:(double)julianDate :(NSDate *)time {
 
-    unsigned unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit |  NSSecondCalendarUnit;
-
-    NSDateComponents * dateComponents = [[NSCalendar currentCalendar] components:unitFlags fromDate:time];
+    unsigned unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit |  NSSecondCalendarUnit | NSTimeZoneCalendarUnit;
+    NSCalendar * calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    
+    NSDateComponents * dateComponents = [calendar components:unitFlags fromDate:time];
+    //NSLog(@"Passed julianDate:%f", julianDate);
+    //NSLog(@"Passed time:%@", time);
+    
+    
 
     double T = (julianDate - 2451545.0) / 36525.0;
     double T0 = 6.697374558 + (T * (2400.051336 + (T + 2.5862E-5)));
 
-    T0 = (double)((int)T0 % 24);
+    //NSLog(@"TO: %f",T0);
+    T0 = fmod(T0,24);
     if (T0 < 0) {
         T0 += 24.0;
     }
-
-    double UT = [dateComponents hour] + ([dateComponents minute] + [dateComponents second] / 60.0) / 60.0;
-
+    //NSLog(@"TO after Fmod: %f",T0);
+ 
+    double UT =[dateComponents hour] + ([dateComponents minute] + [dateComponents second] / 60.0) / 60.0;
+ 
+    //NSLog(@"DateComponents Hour:%d & TimeZone: %@",[dateComponents hour], [dateComponents timeZone].name);
     T0 += UT * 1.002737909;
 
-    T0 = (double)((int)T0 % 24);
+    T0 = fmod(T0, 24);
     if (T0 < 0) {
         T0 += 24.0;
     }
+    //NSLog(@"TO before return %f",T0);
 
     return T0;
 }
@@ -320,41 +330,33 @@
  */
 -(CLLocationCoordinate2D)sunPosition:(double)mssue {
 
-    unsigned unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit |  NSSecondCalendarUnit | NSTimeZoneCalendarUnit;
 
 
     // Set the date and clock, based on the millisecond count:
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:(mssue/1000)];
-
-    NSCalendar * calendar =  [NSCalendar currentCalendar];
+    //NSLog(@"System reports date as %@",date);
     
-    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
 
     double julianDate = [self calculateJulianDate:date];
-
-    // Need to correct time to GMT
-    long gmtOffset = [[comps  timeZone] secondsFromGMT] * 1000;
-    // thanks to Erhard...
-    NSTimeZone *DST = [[NSTimeZone alloc] init];
-    long dstOffset = [DST daylightSavingTimeOffsetForDate:date] * 1000; // ins.
-    // 12.04.99
-
-    date = [NSDate dateWithTimeIntervalSince1970:((mssue - (gmtOffset + dstOffset))/1000)];
-
-    // 12.04.99
-
+    //NSLog(@"Julian Date %f", julianDate);
+    //NSLog(@"MSSUE: %f", mssue);
+    
     double numDaysSinceEpoch = ((mssue / 1000) - EPOCH_TIME_SECS) / (24.0f * 3600.0f);
-
+     //NSLog(@"Days since epoch %f", numDaysSinceEpoch);
     // M0 - mean anomaly of the sun
     double M0 = [self sunMeanAnomaly:numDaysSinceEpoch];
     // lambda
     double sunLongitude = [self sunEclipticLongitude:M0];
+    //NSLog(@"SunLongitude Radians?:%f", sunLongitude);
     // alpha
     double sunAscension = [self eclipticToEquatorialAscension:sunLongitude :0.0];
     // delta
     double sunDeclination = [self eclipticToEquatorialDeclination:sunLongitude :0.0];
 
     double tmpAscension = sunAscension - (TWO_PI / 24) * [self greenwichSiderealTime:julianDate :date];
+    //NSLog(@"Declination:%f", RADIANS_TO_DEGREES(sunDeclination));
+    //NSLog(@"TMPAscension:%f", RADIANS_TO_DEGREES(tmpAscension));
+    //NSLog(@"SunAscension:%f", RADIANS_TO_DEGREES(sunAscension));
 
     return CLLocationCoordinate2DMake(RADIANS_TO_DEGREES(sunDeclination), RADIANS_TO_DEGREES(tmpAscension));
 }

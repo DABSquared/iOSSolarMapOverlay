@@ -58,8 +58,8 @@
 -(NSMutableArray *)sunPoints:(NSDate *)date  {
     CLLocationCoordinate2D brightPoint = [SunPosition getSunCooridinate:date];
     
-    double K = M_PI/180.0;
-
+    double K = (M_PI/180.0);
+ 
     NSMutableArray * points = [[NSMutableArray alloc] init];
 
     double lat1 = 0;
@@ -67,15 +67,12 @@
 
     for (int i=-180; i<=180; i++) {
         longitude=i+brightPoint.longitude;
-        double tanLat = - cos(longitude*K)/tan(brightPoint.latitude*K);
+        double tanLat = ( cos(longitude*K)/tan(brightPoint.latitude*K));
         double arctanLat = atan(tanLat)/K;
-        
-        arctanLat = -arctanLat;
         
         if(i == -180) {
             lat1 = arctanLat;
         }
-
 
         CLLocation *location = [[CLLocation alloc] initWithLatitude:arctanLat longitude:i];
         [points addObject:location];
