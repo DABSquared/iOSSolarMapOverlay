@@ -314,7 +314,7 @@
     if (T0 < 0) {
         T0 += 24.0;
     }
-    //NSLog(@"TO before return %f",T0);
+   // NSLog(@"TO before return %f",T0);
 
     return T0;
 }
@@ -354,9 +354,9 @@
     double sunDeclination = [self eclipticToEquatorialDeclination:sunLongitude :0.0];
 
     double tmpAscension = sunAscension - (TWO_PI / 24) * [self greenwichSiderealTime:julianDate :date];
-    //NSLog(@"Declination:%f", RADIANS_TO_DEGREES(sunDeclination));
-    //NSLog(@"TMPAscension:%f", RADIANS_TO_DEGREES(tmpAscension));
-    //NSLog(@"SunAscension:%f", RADIANS_TO_DEGREES(sunAscension));
+  //  NSLog(@"Declination:%f  R:%f", RADIANS_TO_DEGREES(sunDeclination), sunDeclination);
+  //  NSLog(@"TMPAscension:%f R:%f", RADIANS_TO_DEGREES(tmpAscension), tmpAscension);
+  //  NSLog(@"SunAscension:%f R:%f", RADIANS_TO_DEGREES(sunAscension), sunAscension);
 
     return CLLocationCoordinate2DMake(RADIANS_TO_DEGREES(sunDeclination), RADIANS_TO_DEGREES(tmpAscension));
 }
