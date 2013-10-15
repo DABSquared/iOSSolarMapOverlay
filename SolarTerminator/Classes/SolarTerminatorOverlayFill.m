@@ -47,14 +47,15 @@
     
     
     
-    
-    int pointsCount = 364;
+
+    int pointsCount = 363;
     
     CLLocationCoordinate2D points[pointsCount];
     
     for(int i = 0; i < pointsCount; i++) {
         CLLocation *location =  (CLLocation *)[somePoints objectAtIndex:i];
         points[i] = location.coordinate;
+        NSLog(@"%f %f", location.coordinate.latitude, location.coordinate.longitude);
     }
     
     polygon = [MKPolygon polygonWithCoordinates:points count:pointsCount];
@@ -63,6 +64,9 @@
 
 -(NSMutableArray *)sunPoints:(NSDate *)date  {
     CLLocationCoordinate2D brightPoint = [SunPosition getSunCooridinate:date];
+    
+    
+    
     
     double K = (M_PI/180.0);
     double lat1 = 0;
@@ -89,6 +93,9 @@
     // NSLog(@"Updated BrightPoint:%f",longitudeStart);
     // NSLog(@"Index, Lat, Long"); // For point dump header
     
+    CLLocation *topLeft = [[CLLocation alloc] initWithLatitude:90 longitude:-180];
+    [points addObject:topLeft];
+    
     for (int i=-180; i<=180; i++) {
         
         longitude= longitudeStart + i;
@@ -110,6 +117,7 @@
             lat1 = arctanLat;
         
         //     NSLog(@"%d ,%f, %f ,%f, %f", i, tanLat, arctanLat, longitude, lat1);
+        
         location = [[CLLocation alloc] initWithLatitude:arctanLat longitude:i];
         [points addObject:location];
     }
@@ -118,12 +126,8 @@
 
     
         CLLocation *topRight = [[CLLocation alloc] initWithLatitude:90 longitude:180];
-        CLLocation *topLeft = [[CLLocation alloc] initWithLatitude:90 longitude:-180];
-        CLLocation *start = [[CLLocation alloc] initWithLatitude:lat1 longitude:-180];
-        
+    
         [points addObject:topRight];
-        [points addObject:topLeft];
-        [points addObject:start];
     
    
     

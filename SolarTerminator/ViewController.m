@@ -33,7 +33,7 @@
                                                       radius:radius];
 
     [self.mapView addOverlay:circle];
-    [self.mapView addOverlay:polygon];
+    //[self.mapView addOverlay:polygon];
     [self.mapView addOverlay:polygonFill];
 
 }
@@ -44,6 +44,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    if ([overlay isKindOfClass:[SolarTerminatorOverlayFill class]]) {
+        //get the MKPolygon inside the ParkingRegionOverlay...
+        MKPolygon *proPolygon = ((SolarTerminatorOverlayFill*)overlay).polygon;
+        MKPolygonRenderer *aView = [[MKPolygonRenderer alloc] initWithPolygon:proPolygon];
+        aView.strokeColor = [UIColor redColor];
+        aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
+        aView.lineWidth = 5;
+        
+        return aView;
+    }
+    
+    return nil;
+}
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {
@@ -62,9 +76,9 @@
         //get the MKPolygon inside the ParkingRegionOverlay...
         MKPolygon *proPolygon = ((SolarTerminatorOverlayFill*)overlay).polygon;
         MKPolygonView *aView = [[MKPolygonView alloc] initWithPolygon:proPolygon];
-        //aView.strokeColor = [UIColor redColor];
+        aView.strokeColor = [UIColor redColor];
         aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
-        aView.lineWidth = 0;
+        aView.lineWidth = 5;
         
         return aView;
     }else if ([overlay isKindOfClass:[MKCircle class]]) {
