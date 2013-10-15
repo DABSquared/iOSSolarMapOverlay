@@ -55,7 +55,6 @@
     for(int i = 0; i < pointsCount; i++) {
         CLLocation *location =  (CLLocation *)[somePoints objectAtIndex:i];
         points[i] = location.coordinate;
-        NSLog(@"%f %f", location.coordinate.latitude, location.coordinate.longitude);
     }
     
     polygon = [MKPolygon polygonWithCoordinates:points count:pointsCount];
