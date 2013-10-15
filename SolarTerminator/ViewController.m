@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 #import "SolarTerminatorOverlay.h"
-
+#import "SolarTerminatorOverlayFill.h"
 #import "SunPosition.h"
 
 @interface ViewController ()
@@ -25,6 +25,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     SolarTerminatorOverlay *polygon = [[SolarTerminatorOverlay alloc] init];
+    SolarTerminatorOverlayFill *polygonFill = [[SolarTerminatorOverlayFill alloc] init];
 
 
     CLLocationDistance radius = 80000; // Distance is in meters
@@ -33,7 +34,8 @@
 
     [self.mapView addOverlay:circle];
     [self.mapView addOverlay:polygon];
-    
+    [self.mapView addOverlay:polygonFill];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,12 +51,21 @@
 
     if ([overlay isKindOfClass:[SolarTerminatorOverlay class]]) {
         //get the MKPolygon inside the ParkingRegionOverlay...
-        MKPolygon *proPolygon = ((SolarTerminatorOverlay*)overlay).polygon;
-        MKPolygonView *aView = [[MKPolygonView alloc] initWithPolygon:proPolygon];
+        MKPolyline *proPolygon = ((SolarTerminatorOverlay*)overlay).polygon;
+        MKPolylineView *aView = [[MKPolylineView alloc] initWithPolyline:proPolygon];
         aView.strokeColor = [UIColor colorWithWhite:.2 alpha:.5];
-        aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
-        aView.lineWidth = 10;
+        //aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
+        aView.lineWidth = 5;
 
+        return aView;
+    }else  if ([overlay isKindOfClass:[SolarTerminatorOverlayFill class]]) {
+        //get the MKPolygon inside the ParkingRegionOverlay...
+        MKPolygon *proPolygon = ((SolarTerminatorOverlayFill*)overlay).polygon;
+        MKPolygonView *aView = [[MKPolygonView alloc] initWithPolygon:proPolygon];
+        //aView.strokeColor = [UIColor redColor];
+        aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
+        aView.lineWidth = 0;
+        
         return aView;
     }else if ([overlay isKindOfClass:[MKCircle class]]) {
         MKCircleView * circleView = [[MKCircleView alloc] initWithCircle:overlay];

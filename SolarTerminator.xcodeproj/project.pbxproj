@@ -28,6 +28,7 @@
 		65D81557178BC8A300E3C3A5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D81556178BC8A300E3C3A5 /* MapKit.framework */; };
 		65D81559178BC8B800E3C3A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D81558178BC8B800E3C3A5 /* CoreLocation.framework */; };
 		65D8155C178BCA3800E3C3A5 /* SunPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D8155B178BCA3800E3C3A5 /* SunPosition.m */; };
+		65ECB5DE180CBA7A0037DD90 /* SolarTerminatorOverlayFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECB5DD180CBA7A0037DD90 /* SolarTerminatorOverlayFill.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		65D81558178BC8B800E3C3A5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		65D8155A178BCA3800E3C3A5 /* SunPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SunPosition.h; path = Classes/SunPosition.h; sourceTree = "<group>"; };
 		65D8155B178BCA3800E3C3A5 /* SunPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SunPosition.m; path = Classes/SunPosition.m; sourceTree = "<group>"; };
+		65ECB5DC180CBA7A0037DD90 /* SolarTerminatorOverlayFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolarTerminatorOverlayFill.h; path = Classes/SolarTerminatorOverlayFill.h; sourceTree = "<group>"; };
+		65ECB5DD180CBA7A0037DD90 /* SolarTerminatorOverlayFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SolarTerminatorOverlayFill.m; path = Classes/SolarTerminatorOverlayFill.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 			children = (
 				65937FB8178BC39700FF9B2B /* SolarTerminatorOverlay.h */,
 				65937FB9178BC39700FF9B2B /* SolarTerminatorOverlay.m */,
+				65ECB5DC180CBA7A0037DD90 /* SolarTerminatorOverlayFill.h */,
+				65ECB5DD180CBA7A0037DD90 /* SolarTerminatorOverlayFill.m */,
 				65D8155A178BCA3800E3C3A5 /* SunPosition.h */,
 				65D8155B178BCA3800E3C3A5 /* SunPosition.m */,
 			);
@@ -304,6 +309,7 @@
 				65937F8A178BC33F00FF9B2B /* AppDelegate.m in Sources */,
 				65937F99178BC33F00FF9B2B /* ViewController.m in Sources */,
 				65937FBA178BC39700FF9B2B /* SolarTerminatorOverlay.m in Sources */,
+				65ECB5DE180CBA7A0037DD90 /* SolarTerminatorOverlayFill.m in Sources */,
 				65D8155C178BCA3800E3C3A5 /* SunPosition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

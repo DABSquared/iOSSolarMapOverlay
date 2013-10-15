@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 
 #import "SunPosition.h"
+#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
+#define kCFCoreFoundationVersionNumber_iOS_7_0 847.2
+#endif
 
-
-@interface SolarTerminatorOverlay : NSObject<MKOverlay>
+@interface SolarTerminatorOverlayFill : NSObject<MKOverlay>
 
 
 //@property (nonatomic) CLLocationCoordinate2D origin;
-@property (nonatomic, retain) MKPolyline *polygon;
+@property (nonatomic, retain) MKPolygon *polygon;
 
 -(MKMapRect)boundingMapRect;
 -(CLLocationCoordinate2D)coordinate;
