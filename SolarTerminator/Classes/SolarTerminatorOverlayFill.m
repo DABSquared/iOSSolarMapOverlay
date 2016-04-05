@@ -57,8 +57,8 @@
         points[i] = location.coordinate;
     }
     
-    polygon = [MKPolygon polygonWithCoordinates:points count:pointsCount];
-    polygon.title = @"Sun Position Fill";
+    polygon = [[MKPolylineRenderer alloc] initWithPolyline:[MKPolyline polylineWithCoordinates:points count:pointsCount]];
+    polygon.polyline.title = @"Sun Position";
 }
 
 -(NSMutableArray *)sunPoints:(NSDate *)date  {

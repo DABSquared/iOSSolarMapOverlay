@@ -15,7 +15,7 @@
 
 
 //@property (nonatomic) CLLocationCoordinate2D origin;
-@property (nonatomic, retain) MKPolyline *polygon;
+@property (nonatomic, retain) MKPolylineRenderer *polygon;
 
 -(MKMapRect)boundingMapRect;
 -(CLLocationCoordinate2D)coordinate;

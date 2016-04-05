@@ -24,7 +24,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    SolarTerminatorOverlay *polygon = [[SolarTerminatorOverlay alloc] init];
     SolarTerminatorOverlayFill *polygonFill = [[SolarTerminatorOverlayFill alloc] init];
 
 
@@ -44,51 +43,34 @@
     // Dispose of any resources that can be recreated.
 }
 
--(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
-    if ([overlay isKindOfClass:[SolarTerminatorOverlayFill class]]) {
-        //get the MKPolygon inside the ParkingRegionOverlay...
-        MKPolygon *proPolygon = ((SolarTerminatorOverlayFill*)overlay).polygon;
-        MKPolygonRenderer *aView = [[MKPolygonRenderer alloc] initWithPolygon:proPolygon];
-        aView.strokeColor = [UIColor redColor];
-        aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
-        aView.lineWidth = 5;
-        
-        return aView;
-    }
-    
-    return nil;
-}
-
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
     NSLog(@"in viewForOverlay!");
 
     if ([overlay isKindOfClass:[SolarTerminatorOverlay class]]) {
         //get the MKPolygon inside the ParkingRegionOverlay...
-        MKPolyline *proPolygon = ((SolarTerminatorOverlay*)overlay).polygon;
-        MKPolylineView *aView = [[MKPolylineView alloc] initWithPolyline:proPolygon];
-        aView.strokeColor = [UIColor colorWithWhite:.2 alpha:.5];
+        MKPolylineRenderer *proPolygon = ((SolarTerminatorOverlay*)overlay).polygon;
+        proPolygon.strokeColor = [UIColor colorWithWhite:.2 alpha:.5];
         //aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
-        aView.lineWidth = 5;
+        proPolygon.lineWidth = 5;
 
-        return aView;
+        return proPolygon;
     }else  if ([overlay isKindOfClass:[SolarTerminatorOverlayFill class]]) {
         //get the MKPolygon inside the ParkingRegionOverlay...
-        MKPolygon *proPolygon = ((SolarTerminatorOverlayFill*)overlay).polygon;
-        MKPolygonView *aView = [[MKPolygonView alloc] initWithPolygon:proPolygon];
-        aView.strokeColor = [UIColor redColor];
-        aView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
-        aView.lineWidth = 5;
+        MKPolylineRenderer *proPolygon = ((SolarTerminatorOverlayFill*)overlay).polygon;
+        proPolygon.strokeColor = [UIColor redColor];
+        proPolygon.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
+        proPolygon.lineWidth = 5;
         
-        return aView;
+        return proPolygon;
     }else if ([overlay isKindOfClass:[MKCircle class]]) {
-        MKCircleView * circleView = [[MKCircleView alloc] initWithCircle:overlay];
+        MKCircleRenderer * circleView = [[MKCircleRenderer alloc] initWithCircle:overlay];
         circleView.lineWidth = 2;
         circleView.strokeColor = [UIColor colorWithWhite:.2 alpha:.5];
         circleView.fillColor = [UIColor colorWithWhite:.2 alpha:.3];
         return circleView;
     }else if ([overlay isKindOfClass:[MKPolyline class]]) {
-        MKPolylineView *aView = [[MKPolylineView alloc] initWithPolyline:overlay];
+        MKPolylineRenderer *aView = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
         aView.fillColor = [[UIColor cyanColor] colorWithAlphaComponent:0.2];
         aView.strokeColor = [UIColor blackColor];
         aView.lineWidth = 5;
